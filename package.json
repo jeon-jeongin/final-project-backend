@@ -6,7 +6,8 @@
     "preinstall": "npx npm-force-resolutions",
     "dev": "nodemon --exec babel-node server --delay 2",
     "migrate": "npx prisma migrate dev",
-    "studio": "npx prisma studio"
+    "studio": "npx prisma studio",
+    "build" : "node --exec babel-node server --delay 2"
   },
   "repository": {
     "type": "git",
