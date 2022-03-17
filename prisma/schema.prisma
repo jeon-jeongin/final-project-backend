@@ -32,7 +32,7 @@ model User{
 
 model Photo {
   id Int @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
   file String
   caption String?
@@ -53,8 +53,8 @@ model Hashtag {
 
 model Like {
   id Int @id @default(autoincrement())
-  photo Photo @relation(fields: [photoId], references: [id])
-  user User @relation(fields: [userId], references: [id])
+  photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   photoId Int
   userId Int
   createAt DateTime @default(now())
@@ -65,8 +65,8 @@ model Like {
 
 model Comment{
   id Int @id @default(autoincrement())
-  photo Photo @relation(fields: [photoId], references: [id])
-  user User @relation(fields: [userId], references: [id])
+  photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   payload String
   photoId Int
   userId Int

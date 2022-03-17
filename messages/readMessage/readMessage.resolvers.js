@@ -3,7 +3,7 @@ import { protectResolver } from "../../users/users.utils";
 
 export default {
     Mutation: {
-        readMessage: protectResolver(async(_, {id}, {loggedInUser}) => {
+        readMessage: protectResolver(async (_, { id }, { loggedInUser }) => {
             const message = await client.message.findFirst({
                 where: {
                     id,
@@ -22,7 +22,7 @@ export default {
                     id: true,
                 },
             });
-            if(!message){
+            if (!message) {
                 return {
                     ok: false,
                     error: "메세지를 찾을 수 없습니다."
@@ -38,6 +38,7 @@ export default {
             });
             return {
                 ok: true,
+                id: message.id,
             }
         })
     }

@@ -3,11 +3,11 @@ import { NEW_MESSAGE } from "../../constants";
 import pubsub from "../../pubsub";
 import { protectResolver } from "../../users/users.utils";
 
-export default{
-    Mutation :{
-        sendMessage: protectResolver(async(_, {payload, roomId, userId}, {loggedInUser}) => {
+export default {
+    Mutation: {
+        sendMessage: protectResolver(async (_, { payload, roomId, userId }, { loggedInUser }) => {
             let room = null;
-            if(userId){
+            if (userId) {
                 const user = await client.user.findUnique({
                     where: {
                         id: userId,
@@ -16,18 +16,18 @@ export default{
                         id: true,
                     }
                 });
-                if(!user){
+                if (!user) {
                     return {
                         ok: false,
                         error: "이 사용자는 존재하지 않습니다."
                     };
                 }
-                room = await client.room.create({
+                const room = await client.room.create({
                     data: {
                         users: {
                             connect: [
                                 {
-                                    id:userId
+                                    id: userId
                                 },
                                 {
                                     id: loggedInUser.id,
@@ -36,7 +36,7 @@ export default{
                         },
                     }
                 });
-            } else if(roomId){
+            } else if (roomId) {
                 room = await client.room.findUnique({
                     where: {
                         id: roomId,
@@ -45,7 +45,7 @@ export default{
                         id: true,
                     }
                 });
-                if(!room){
+                if (!room) {
                     return {
                         ok: false,
                         error: "채팅방을 찾을 수 없습니다."
@@ -67,9 +67,10 @@ export default{
                     },
                 }
             });
-            pubsub.publish(NEW_MESSAGE, {roomUpdates: {...message}});
+            pubsub.publish(NEW_MESSAGE, { roomUpdates: { ...message } });
             return {
                 ok: true,
+                id: message.id,
             }
         })
     }

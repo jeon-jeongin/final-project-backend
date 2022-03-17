@@ -2,15 +2,15 @@ import client from "../../client";
 import { protectResolver } from "../../users/users.utils";
 import { processHashtags } from "../photos.utils";
 
-export default{
+export default {
     Mutation: {
-        editPhoto: protectResolver(async(_, {id, caption}, {loggedInUser}) => {
+        editPhoto: protectResolver(async (_, { id, caption }, { loggedInUser }) => {
             const oldPhoto = await client.photo.findFirst({
                 where: {
                     id,
                     userId: loggedInUser.id
                 },
-                include:{
+                include: {
                     hashtags: {
                         select: {
                             hashtag: true,
@@ -18,8 +18,8 @@ export default{
                     }
                 }
             });
-            if(!oldPhoto){
-                return{
+            if (!oldPhoto) {
+                return {
                     ok: false,
                     error: "사진을 찾을 수 없습니다."
                 };
@@ -36,7 +36,7 @@ export default{
                     }
                 }
             })
-            return{
+            return {
                 ok: true,
             }
         })
