@@ -22,7 +22,7 @@ export default {
                         error: "이 사용자는 존재하지 않습니다."
                     };
                 }
-                const room = await client.room.create({
+                room = await client.room.create({
                     data: {
                         users: {
                             connect: [
