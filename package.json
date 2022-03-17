@@ -7,7 +7,7 @@
     "dev": "nodemon --exec babel-node server --delay 2",
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio",
-    "build" : "babel-node server"
+    "build" : "babel-node server --delay 2"
   },
   "repository": {
     "type": "git",
